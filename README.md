@@ -1,4 +1,4 @@
-# Projeto pratico: Superprof
+# Projeto pratico: HiperProf
 
 <p align="center">
   <img src="https://github.com/treinaweb.png" width="200">
@@ -6,7 +6,7 @@
 
 
 <p align="center">
-    Superprof by <a href="https://github.com/treinaweb">TreinaWeb</a>
+    HiperProf by <a href="https://github.com/treinaweb">TreinaWeb</a>
 </p>
 
 ## índice
