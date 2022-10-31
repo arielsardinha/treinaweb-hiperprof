@@ -1,34 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Projeto pratico: Superprof
 
-## Getting Started
+<p align="center">
+  <img src="https://github.com/treinaweb.png" width="200">
+</p>
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+<p align="center">
+    Superprof by <a href="https://github.com/treinaweb">TreinaWeb</a>
+</p>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## índice
+- [Descrição](#descrição)
+- [Layout da aplicação](#layout-da-aplicação)
+- [Documentacao Api](#documentacao-Api)
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Descrição
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+A aplicação a ser desenvolvida deve permitir que pessoas encontrem professores para se candidatar
+a uma aula de maneira fácil, além de facilitar a vida de novos professores com um cadastro simples e
+para receber as candidaturas dos alunos.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Layout da aplicação
 
-## Learn More
+Abaixo está o link para acessar o [Mockup](https://pt.wikipedia.org/wiki/Mockup) 
 
-To learn more about Next.js, take a look at the following resources:
+- [Mockup](https://www.figma.com/file/RHvYRKfQe1rpVxpytGUcux/HIPER-PROF?node-id=0%3A1)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Documentacao Api
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Abaixo você encontrará todas as informações do quê e como deve ser desenvolvido no front-end.
 
-## Deploy on Vercel
+- [API](https://alunos.treinaweb.com.br/hyperprof/doc.html#tag/Me)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
