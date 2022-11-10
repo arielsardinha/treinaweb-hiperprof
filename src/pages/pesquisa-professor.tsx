@@ -1,9 +1,10 @@
 import PageTitle from "@components/data-display/PageTitle";
-import ProfessorCard from "@components/data-display/ProfessorCard";
 import ListaProfessorCard from "@components/data-display/ProfessorCard/listaProfessorCard";
+import usePesquisaProfessor from "@data/hooks/pages/usePesquisaProfessor";
 import { TextField, Icon, Container } from "@mui/material";
 
 export default function PesquisaProfessorPage() {
+  const { professores, onSearch, selecionarProfessor } = usePesquisaProfessor();
   return (
     <Container>
       <TextField
@@ -12,6 +13,7 @@ export default function PesquisaProfessorPage() {
         InputProps={{
           startAdornment: <Icon sx={{ mr: 1 }}>search</Icon>,
         }}
+        onChange={({ target: { value } }) => onSearch(value)}
         fullWidth
         required
       />
@@ -19,7 +21,10 @@ export default function PesquisaProfessorPage() {
         title="Professores Encontrados"
         subtitle="Clique sobre um professor para ver os detalhes e poder marcar uma aula com o mesmo"
       />
-      <ListaProfessorCard professores={[]} onClick={(professor) => {}} />
+      <ListaProfessorCard
+        professores={professores ?? []}
+        onClick={selecionarProfessor}
+      />
     </Container>
   );
 }
