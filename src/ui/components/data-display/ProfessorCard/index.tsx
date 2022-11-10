@@ -1,21 +1,29 @@
+import { ProfessorInterface } from "@data/@types/professor";
 import { Button, Typography } from "@mui/material";
-import {
-  BoxAvatarStyed,
-  BoxCardStyled,
-  BoxContainsStyled,
-  ImageStyled,
-} from "./styles";
+import { BoxAvatarStyed, BoxContainsStyled, ImageStyled } from "./styles";
 
-export default function ProfessorCard() {
+export interface ProfessorCardProps {
+  professor: ProfessorInterface;
+  onClick: (professor: ProfessorInterface) => void;
+}
+
+export default function ProfessorCard({
+  professor,
+  onClick,
+}: ProfessorCardProps) {
   return (
-    <BoxCardStyled>
+    <>
       <BoxAvatarStyed>
-        <ImageStyled src="https://github.com/arielsardinha.png" alt="" />
+        {professor.foto_perfil ? (
+          <ImageStyled src={professor.foto_perfil!} alt="" />
+        ) : (
+          <ImageStyled src={"/user.svg"} alt="" style={{ width: "50%" }} />
+        )}
       </BoxAvatarStyed>
       <BoxContainsStyled>
         <div className="text-container">
           <Typography variant="h6" className="descricao" paragraph>
-            Nome
+            {professor.nome}
           </Typography>
           <Typography
             sx={{ display: "flex", alignItems: "center" }}
@@ -23,20 +31,17 @@ export default function ProfessorCard() {
             variant="body2"
             paragraph
           >
-            descrição Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Tempora laborum expedita cumque exercitationem explicabo rerum
-            corporis minima veritatis illum nemo deserunt aliquid ipsa optio,
-            modi veniam consequuntur animi? Mollitia, enim? Lorem ipsum dolor
-            sit amet consectetur adipisicing elit. Reprehenderit inventore
-            eveniet blanditiis, eligendi iste veniam minus nemo voluptatum nulla
-            deleniti nisi, quasi rem vero dignissimos! Totam provident beatae
-            numquam exercitationem.
+            {professor.descricao}
           </Typography>
         </div>
-        <Button variant="outlined" color="inherit" onClick={() => {}}>
+        <Button
+          variant="outlined"
+          color="inherit"
+          onClick={() => onClick(professor)}
+        >
           Ver detalhes
         </Button>
       </BoxContainsStyled>
-    </BoxCardStyled>
+    </>
   );
 }

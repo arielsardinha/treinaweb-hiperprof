@@ -1,10 +1,11 @@
 import PageTitle from "@components/data-display/PageTitle";
 import ProfessorCard from "@components/data-display/ProfessorCard";
-import { TextField, Icon } from "@mui/material";
+import ListaProfessorCard from "@components/data-display/ProfessorCard/listaProfessorCard";
+import { TextField, Icon, Container } from "@mui/material";
 
 export default function PesquisaProfessorPage() {
   return (
-    <>
+    <Container>
       <TextField
         sx={{ mt: 3, mb: 1 }}
         label={"Encontre um professor"}
@@ -18,7 +19,7 @@ export default function PesquisaProfessorPage() {
         title="Professores Encontrados"
         subtitle="Clique sobre um professor para ver os detalhes e poder marcar uma aula com o mesmo"
       />
-      <ProfessorCard />
-    </>
+      <ListaProfessorCard professores={[]} onClick={(professor) => {}} />
+    </Container>
   );
 }
