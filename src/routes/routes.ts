@@ -22,4 +22,12 @@ export const Router = {
     },
     icon: "",
   },
+
+  cadastroProfessor: {
+    name: "/professor/cadastro-professor",
+    push: function (router: NextRouter) {
+      router.push({ pathname: this.name });
+    },
+    icon: "",
+  },
 };
