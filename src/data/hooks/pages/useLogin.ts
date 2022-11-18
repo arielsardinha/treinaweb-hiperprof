@@ -5,7 +5,9 @@ import {
   ResponseLoginInterface,
 } from "@data/@types/login";
 import { ApiService } from "@data/services/ApiService";
+import { Router } from "@routes/routes";
 import { AxiosError, AxiosResponse } from "axios";
+import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
 
 export default function useLogin() {
@@ -14,7 +16,8 @@ export default function useLogin() {
     ),
     [messageErro, setMessageErro] = useState<LoginErroInterface>(),
     [loading, setLoading] = useState(false),
-    [snackMessage, setSnackMessage] = useState("");
+    [snackMessage, setSnackMessage] = useState(""),
+    router = useRouter();
   function handleLogin(event: FormEvent) {
     event.preventDefault();
 
@@ -25,6 +28,7 @@ export default function useLogin() {
         .then(({ data }: AxiosResponse<ResponseLoginInterface>) => {
           localStorage.setItem("token_hiperprof", data.token);
           localStorage.setItem("refresh_token_hiperprof", data.refresh_token);
+          Router.listaDeAlunos.push(router);
         })
         .catch(
           ({
