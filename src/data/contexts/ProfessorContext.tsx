@@ -1,9 +1,11 @@
 import { ProfessorInterface } from "@data/@types/professor";
+import { getUser } from "@data/services/MeService";
 import {
   createContext,
   Dispatch,
   PropsWithChildren,
   SetStateAction,
+  useEffect,
   useState,
 } from "react";
 
@@ -23,6 +25,13 @@ export const ProfessorProvider: React.FC<PropsWithChildren> = ({
   children,
 }) => {
   const [professor, setProfessor] = useState<ProfessorInterface>();
+
+  useEffect(() => {
+    getUser().then(({ data }) => {
+      setProfessor(data);
+    });
+  }, []);
+
   return (
     <ProfessorContext.Provider
       value={{ ProfessorState: professor, ProfessorDispatch: setProfessor }}
