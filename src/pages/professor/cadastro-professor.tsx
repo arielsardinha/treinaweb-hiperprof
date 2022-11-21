@@ -1,15 +1,24 @@
 import PageTitle from "@components/data-display/PageTitle";
+import Dialog from "@components/feedback/Dialog";
+import ButtonFile from "@components/inputs/ButtonFile";
 import CurrencyInputMask from "@components/inputs/CurrencyInputMask";
+import { ProfessorInterface } from "@data/@types/professor";
 import useCadastroProfessor from "@data/hooks/pages/professor/useCadastroProfessor";
 import {
+  Avatar,
   Box,
   Button,
   Card,
   CircularProgress,
+  Icon,
   Snackbar,
   TextField,
+  Typography,
 } from "@mui/material";
-import { BoxButtons } from "@styles/pages/professor/cadastro-professor-styles";
+import {
+  BoxAvatar,
+  BoxButtons,
+} from "@styles/pages/professor/cadastro-professor-styles";
 
 export default function CadastroProfessorPage() {
   const {
@@ -20,11 +29,30 @@ export default function CadastroProfessorPage() {
     setValuesCadastro,
     handleSubmit,
     loading,
+    professor,
+    saveFoto,
+    openDialog,
+    setOpenDialog,
+    deleteAccount,
   } = useCadastroProfessor();
 
   return (
     <>
-      <PageTitle title="CADASTRAR DADOS" />
+      {professor?.id && (
+        <BoxAvatar>
+          <ButtonFile onChange={saveFoto}>
+            <Avatar src={professor.foto_perfil}>
+              {Object.hasOwn(professor, "nome") && professor.nome[0]}
+            </Avatar>
+            <div className="boxIcon">
+              <Icon>add_a_photo</Icon>
+            </div>
+          </ButtonFile>
+        </BoxAvatar>
+      )}
+      <PageTitle
+        title={professor?.id ? "Editar professor" : "Cadastrar professor"}
+      />
       <Box sx={{ maxWidth: "md", mx: "auto", my: 3 }}>
         <Card sx={{ p: 3 }}>
           <TextField
@@ -32,6 +60,7 @@ export default function CadastroProfessorPage() {
             error={valuesErroCadastro?.nome != undefined}
             helperText={valuesErroCadastro?.nome}
             sx={{ my: 2 }}
+            value={valuesCadastro?.nome ?? ""}
             onChange={({ target: { value } }) => {
               setValuesCadastro((prevState) => ({ ...prevState, nome: value }));
             }}
@@ -42,6 +71,7 @@ export default function CadastroProfessorPage() {
             type={"number"}
             error={valuesErroCadastro?.idade != undefined}
             helperText={valuesErroCadastro?.idade}
+            value={valuesCadastro?.idade ?? ""}
             sx={{ my: 2 }}
             onChange={({ target: { value } }) => {
               setValuesCadastro((prevState) => ({
@@ -56,6 +86,7 @@ export default function CadastroProfessorPage() {
             error={valuesErroCadastro?.valor_hora != undefined}
             helperText={valuesErroCadastro?.valor_hora}
             sx={{ my: 2 }}
+            value={valuesCadastro?.valor_hora ?? ""}
             onChange={({ target: { value } }) => {
               setValuesCadastro((prevState) => ({
                 ...prevState,
@@ -70,6 +101,7 @@ export default function CadastroProfessorPage() {
             helperText={valuesErroCadastro?.descricao}
             rows={4}
             sx={{ my: 2 }}
+            value={valuesCadastro?.descricao ?? ""}
             onChange={({ target: { value } }) => {
               setValuesCadastro((prevState) => ({
                 ...prevState,
@@ -88,6 +120,7 @@ export default function CadastroProfessorPage() {
             helperText={valuesErroCadastro?.email}
             type={"email"}
             sx={{ my: 2 }}
+            value={valuesCadastro?.email ?? ""}
             onChange={({ target: { value } }) => {
               setValuesCadastro((prevState) => ({
                 ...prevState,
@@ -126,10 +159,41 @@ export default function CadastroProfessorPage() {
           />
         </Card>
         <BoxButtons>
-          <Button variant="contained" onClick={handleSubmit} fullWidth>
-            {!loading ? "Cadastrar" : <CircularProgress color="primary" />}
-          </Button>
+          <ButtonSubmit
+            professor={professor}
+            loading={loading}
+            handleSubmit={handleSubmit}
+          />
         </BoxButtons>
+        {professor?.id && (
+          <>
+            <Typography
+              variant="body2"
+              color={"grey"}
+              textAlign={"center"}
+              sx={{ my: 5 }}
+            >
+              Você pode apagar sua conta, desse modo não será mais exibida na
+              plataforma.
+            </Typography>
+            <BoxButtons>
+              <Button
+                color="error"
+                variant="outlined"
+                onClick={() => {
+                  setOpenDialog(true);
+                }}
+                fullWidth
+              >
+                {loading ? (
+                  <CircularProgress color="primary" />
+                ) : (
+                  "Apagar minha conta"
+                )}
+              </Button>
+            </BoxButtons>
+          </>
+        )}
       </Box>
       <Snackbar
         open={snackMessage.length > 0}
@@ -137,6 +201,31 @@ export default function CadastroProfessorPage() {
         autoHideDuration={4000}
         onClose={() => setSnackMessage("")}
       />
+      <Dialog
+        isOpen={openDialog}
+        title="Tem certeza que deseja excluir ?"
+        onConfirm={deleteAccount}
+        onClose={() => setOpenDialog(false)}
+        onCancel={() => setOpenDialog(false)}
+      />
     </>
+  );
+}
+
+interface ButtonSubmitProps {
+  professor?: ProfessorInterface;
+  handleSubmit: () => void;
+  loading: boolean;
+}
+
+function ButtonSubmit({ handleSubmit, professor, loading }: ButtonSubmitProps) {
+  if (loading) {
+    return <CircularProgress color="primary" />;
+  }
+
+  return (
+    <Button variant="contained" onClick={handleSubmit} fullWidth>
+      {professor?.id ? "Editar" : "Cadastrar"}
+    </Button>
   );
 }
