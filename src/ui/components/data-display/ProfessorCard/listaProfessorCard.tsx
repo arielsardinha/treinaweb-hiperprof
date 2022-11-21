@@ -9,14 +9,14 @@ export interface ListaProfessorCardProps {
 
 export default function ListaProfessorCard({
   professores,
-  onClick
+  onClick,
 }: ListaProfessorCardProps) {
   return (
     <ListStyled>
       {professores.map((professor) => {
         return (
           <BoxCardItemStyled key={professor.id}>
-            <ProfessorCard professor={professor} onClick={onClick} />;
+            <ProfessorCard professor={professor} onClick={onClick} />
           </BoxCardItemStyled>
         );
       })}
